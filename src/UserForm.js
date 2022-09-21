@@ -9,7 +9,7 @@ import { UserContext } from "./Context";
 const { Option } = Select;
 const layout = {
     labelCol: {
-        span: 8,
+        span: 6,
     },
     wrapperCol: {
         span: 16,
@@ -17,10 +17,11 @@ const layout = {
 };
 const tailLayout = {
     wrapperCol: {
-        offset: 8,
+        offset: 6,
         span: 16,
     },
 };
+
 
 const UserForm = () => {
     const {user, setUser} = useContext(UserContext);

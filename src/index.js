@@ -20,8 +20,8 @@ export default function App() {
 
             <BrowserRouter>
                 <Routes>
-                    <Route path="/VideoPage" element={<VideoPage />} />
                     <Route path="/UserForm" element={<UserForm />} />
+                    <Route path="/VideoPage" element={<VideoPage />} />
                 </Routes>
             </BrowserRouter>
         </UserContext.Provider>
