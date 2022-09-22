@@ -20,6 +20,12 @@ def return_video_content(filename):
     file = os.path.join(path, filename)
     return send_file(file)
 
+# @app.route("/random/<string:filename>")
+# def return_random_video(filename):
+#     path = "../files"
+#     file = os.path.join(path, filename)
+#     return send_file(file)
+
 
 @app.route("/name/<string:filename>")
 def return_video_name(filename):
