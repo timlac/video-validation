@@ -1,19 +1,19 @@
 import { Radio } from 'antd';
 import React, {useContext, useState} from 'react';
-import {useLocation} from "react-router-dom";
+// import {Form, useLocation} from "react-router-dom";
 import {UserContext} from "./Context";
+import { Button, Form, Input, Select } from 'antd';
+import {useNavigate} from "react-router-dom";
+
 
 export default function VideoPage({}){
 
     const {user, setUser} = useContext(UserContext);
+    const navigate = useNavigate();
 
     const [value, setValue] = useState(1);
 
-    const onChange = (e) => {
-        console.log('radio checked', e.target.value);
-        setValue(e.target.value);
-        console.log(user)
-
+    const onFinish = () => {
         fetch('http://127.0.0.1:5100/add_response',
             {
                 method: 'POST',
@@ -22,13 +22,19 @@ export default function VideoPage({}){
                 },
                 body: JSON.stringify({
                     "user": user,
-                    "response": e
+                    "response": value
                 })
             }).then(res => {
                 return res.json()
         })
             .then(data => console.log(data))
             .catch(error => console.log('error'))
+    };
+
+    const onChange = (e) => {
+        console.log('radio checked', e.target.value);
+        setValue(e.target.value);
+        console.log(user)
     };
 
     fetch('http://127.0.0.1:5100/name/A55_mix_ang_disg_5050.mp4', {mode: 'cors'})
@@ -47,13 +53,24 @@ export default function VideoPage({}){
                 </video>
             </div>
             <div>
-                <Radio.Group onChange={onChange} value={value}>
-                    <Radio value={1}>A</Radio>
-                    <Radio value={2}>B</Radio>
-                    <Radio value={3}>C</Radio>
-                    <Radio value={4}>D</Radio>
-                </Radio.Group>
+                <Form name="control-hooks" onFinish={onFinish}>
+                    <Form.Item>
+                        <Radio.Group name="emotion" onChange={onChange} value={value} onFinish={onFinish}>
+                            <Radio value={1}>A</Radio>
+                            <Radio value={2}>B</Radio>
+                            <Radio value={3}>C</Radio>
+                            <Radio value={4}>D</Radio>
+                        </Radio.Group>
+                    </Form.Item>
+
+                    <Form.Item>
+                            <Button type="primary" htmlType="submit">
+                            Submit
+                            </Button>
+                    </Form.Item>
+                </Form>
             </div>
+
         </div>
     );
 };
