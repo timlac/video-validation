@@ -5,6 +5,7 @@ import os
 from flask_cors import CORS
 import json
 from flask import request
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -13,6 +14,8 @@ port = 5100
 
 # A55_mix_ang_disg_5050.mp4
 
+video_stack = os.listdir("../files")
+
 
 @app.route("/<string:filename>")
 def return_video_content(filename):
@@ -20,11 +23,13 @@ def return_video_content(filename):
     file = os.path.join(path, filename)
     return send_file(file)
 
-# @app.route("/random/<string:filename>")
-# def return_random_video(filename):
-#     path = "../files"
-#     file = os.path.join(path, filename)
-#     return send_file(file)
+
+@app.route("/next")
+def return_next_video():
+    path = "../files"
+    filename = video_stack.pop()
+    file = os.path.join(path, filename)
+    return send_file(file)
 
 
 @app.route("/name/<string:filename>")

@@ -3,10 +3,13 @@ import React, {useContext, useState} from 'react';
 // import {Form, useLocation} from "react-router-dom";
 import {UserContext} from "./Context";
 import { Button, Form, Tooltip } from 'antd';
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
+import {emotionDefinitions, emotions1, emotions2} from './constants'
 
 
-export default function VideoPage({}){
+export default function VideoPage({emotions}){
+    const location = useLocation();
+    console.log(location.state.emotions)
 
     const {user, setUser} = useContext(UserContext);
     const navigate = useNavigate();
@@ -30,7 +33,7 @@ export default function VideoPage({}){
             .then(data => console.log(data))
             .catch(error => console.log('error'))
 
-        navigate('/VideoPage')
+        navigate('/VideoPage', {state: {"emotions": emotions2}})
     };
 
     const onChange = (e) => {
@@ -65,24 +68,14 @@ export default function VideoPage({}){
             }}>
                 <Form name="control-hooks" onFinish={onFinish}>
                     <Form.Item>
-                        <Radio.Group onChange={onChange} defaultValue="a" onFinish={onFinish} style={{ marginTop: 16 }} size="large">
-                            <Tooltip placement="topLeft" title="Att finna något imponerande eller värt respekt" color={"blue"}>
-                                <Radio.Button value="a">BEUNDRAN</Radio.Button>
+                        <Radio.Group onChange={onChange} onFinish={onFinish} style={{ marginTop: 16 }} size="large" buttonStyle="solid">
+                            {location.state.emotions.map((emotion) => (
+                            <Tooltip title={emotionDefinitions[emotion]} color={"blue"} key={emotion}>
+                              <Radio.Button value={emotion}>{emotion}</Radio.Button>
                             </Tooltip>
-                            <Tooltip placement="topLeft" title="Känslan när du stöter på något larvigt, ironiskt, vitsigt, eller befängt, vilket får dig att känna
-dig road" color={"blue"}>
-                                <Radio.Button value="b">NÖJE</Radio.Button>
-                            </Tooltip>
-
-                            <Radio.Button value="c">VÖRDNAD</Radio.Button>
-                            <Radio.Button value="d">KONCENTRATION</Radio.Button>
-                            <Radio.Button value="e">BESLUTSAMHET</Radio.Button>
-                            <Radio.Button value="f">UPPHÖJDHET</Radio.Button>
-                            <Radio.Button value="g">EXALTERAD/FÖRVÄNTANSFULL</Radio.Button>
-                            <Radio.Button value="h">TACKSAMHET</Radio.Button>
+                          ))}
                         </Radio.Group>
                     </Form.Item>
-
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
                             Submit
@@ -94,5 +87,3 @@ dig road" color={"blue"}>
         </div>
     );
 };
-
-

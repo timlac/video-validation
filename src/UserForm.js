@@ -5,6 +5,8 @@ import { Button, Form, Input, Select } from 'antd';
 import VideoPage from "./VideoPage";
 import {useNavigate} from "react-router-dom";
 import { UserContext } from "./Context";
+import { emotions1 } from './constants'
+
 
 const { Option } = Select;
 const layout = {
@@ -32,7 +34,7 @@ const UserForm = () => {
 
     const onFinish = (values) => {
         setUser(values)
-        navigate('/VideoPage');
+        navigate('/VideoPage', {state: {"emotions": emotions1}});
     };
 
     const onReset = () => {

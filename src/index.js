@@ -20,7 +20,7 @@ export default function App() {
 
             <BrowserRouter>
                 <Routes>
-                    <Route path="/UserForm" element={<UserForm />} />
+                    <Route path="/" element={<UserForm />} />
                     <Route path="/VideoPage" element={<VideoPage />} />
                 </Routes>
             </BrowserRouter>
