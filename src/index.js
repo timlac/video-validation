@@ -1,32 +1,17 @@
-import ReactDOM from "react-dom/client";
-import {useState} from "react";
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-import VideoPage from "./VideoPage";
-import UserForm from "./UserForm";
-
-import { UserContext } from "./Context";
-
-export default function App() {
-
-    const [user, setUser] = useState({
-        email: "",
-        gender: ""
-    });
-
-    return (
-        <UserContext.Provider value={ {user, setUser} }>
-
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<UserForm />} />
-                    <Route path="/VideoPage" element={<VideoPage />} />
-                </Routes>
-            </BrowserRouter>
-        </UserContext.Provider>
-    );
-}
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './components/App/App';
+import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
