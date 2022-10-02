@@ -16,6 +16,7 @@ class Record:
         self.alias = alias
         self.processed_status = 0
         self.emotion_type = emotion_type
+        self.reply = "empty"
 
 dynamodb = boto3.client('dynamodb')
 

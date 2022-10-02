@@ -9,48 +9,55 @@ import {type} from "@testing-library/user-event/dist/type";
 
 
 export default function VideoPage({emotions}){
+    // TODO: Make it impossible to submit without picking alternative
+    // TODO: check for when all videos have been processed
+
     const location = useLocation();
     console.log(location.state.emotions)
 
     const {user, setUser} = useContext(UserContext);
     const navigate = useNavigate();
 
-    const [value, setValue] = useState(1);
+    const [reply, setReply] = useState(1);
     const [dbItem, setDbItem] = useState();
     const [videoUrl, setVideoUrl] = useState("empty video url");
 
     const onFinish = () => {
-        fetch('http://127.0.0.1:5100/add_response',
+
+        fetch('https://1v3k9pr4el.execute-api.eu-west-1.amazonaws.com/items',
             {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     'Content-type': 'application/json'
                 },
-                body: JSON.stringify({
-                    "user": user,
-                    "response": value
-                })
+                body: JSON.stringify(dbItem)
             }).then(res => {
-            return res.json()
+                console.log(res.json())
+            return res
         })
             .then(data => console.log(data))
-            .catch(error => console.log('error'))
+            .catch(error => console.log(error))
 
-        navigate('/VideoPage', {state: {"emotions": emotions2}})
+        setDbItem(undefined)
+
     };
 
     const onChange = (e) => {
         console.log('radio checked', e.target.value);
-        setValue(e.target.value);
-        console.log(user)
+        setDbItem({...dbItem, ["reply"]: e.target.value , ["processed_status"]: 1})
+        // setDbItem({...dbItem, ["processed_status"]: 1})
+        setReply(e.target.value);
     };
 
     useEffect(() => {
         if(!dbItem) {
+            console.log("db item is undefined")
             fetch("https://1v3k9pr4el.execute-api.eu-west-1.amazonaws.com/items/tim", {mode: 'cors'})
-            .then((response => response.json()))
-            .then((response) => setDbItem(response["Items"][0]));
+                .then((response => response.json()))
+                .then((response) => setDbItem(response["Items"][0]));
+            setVideoUrl("empty video url")
         }
+
     }, [dbItem]);
 
     useEffect(() => {
@@ -63,34 +70,9 @@ export default function VideoPage({emotions}){
         }
     })
 
-
-    // useEffect(() => {
-    //     if(dbItem) {
-    //         video_url = "https://dizrdtyhmcwjf.cloudfront.net/" + dbItem["video_id"]
-    //     }
-    // }, [video_url]);
-
-    console.log("logging db item: ", dbItem);
-    console.log(videoUrl)
-
-    // useEffect(() => {
-    //     fetch("https://1v3k9pr4el.execute-api.eu-west-1.amazonaws.com/items/tim", {mode: 'cors'})
-    //         .then((response => response.json()))
-    //         .then((response) => setDbItem(response["Items"][0]))
-    // })
-
-    // fetch('http://127.0.0.1:5100/A72_ang_p_4.mov', {mode: 'cors'})
-    //     .then((response) => response.json())
-    //     .then((data) => console.log(data));
-
-    // const video_url = 'http://127.0.0.1:5100/A220_ang_v_3.mov'
-
-    // console.log(video_url + dbItem["video_id"])
-
     if (videoUrl === "empty video url"){
         return <div>Loading...</div>
     }
-
     return (
         <div>
             <div><p>{videoUrl}</p></div>
@@ -126,10 +108,6 @@ export default function VideoPage({emotions}){
                     </Form.Item>
                 </Form>
             </div>
-            {/*<div>*/}
-            {/*    <p>{dbItem["video_id"]}</p>*/}
-            {/*    <p>"hej"</p>*/}
-            {/*</div>*/}
         </div>
     );
 };
