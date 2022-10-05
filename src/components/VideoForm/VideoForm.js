@@ -1,4 +1,4 @@
-import { Radio, Button, Form, Tooltip, Spin } from 'antd';
+import {Radio, Button, Form, Tooltip, Spin, Alert} from 'antd';
 import React, {useEffect, useState, useReducer} from 'react';
 import './VideoForm.css'
 
@@ -16,7 +16,8 @@ export default function VideoForm() {
 
     const { token, setToken } = useToken();
 
-    const [emotionType, setEmotionType] = useState();
+
+    const [outOfVideos, setOutOfVideos] = useState(false)
     const [reply, setReply] = useState();
     const [dataItem, setDataItem] = useState();
     const [currentVideoUrl, setCurrentVideoUrl] = useState("");
@@ -28,6 +29,7 @@ export default function VideoForm() {
         await putItem(dataItem)
         setSubmitting(false)
         setDataItem()
+        setReply()
     }
 
     const handleChange = event => {
@@ -40,17 +42,31 @@ export default function VideoForm() {
         console.log(dataItem)
     }
 
+
     useEffect( () => {
         if(dataItem) {
             return;
         }
         getItem(token)
             .then(item => {
-                setDataItem(item["Items"][0])
-                setCurrentVideoUrl(concatUrl(item["Items"][0]["video_id"]))
-                setEmotionType(item["Items"][0]["emotion_type"])
+                if (item["Items"].length === 0){
+                    setOutOfVideos(true)
+                } else {
+                    setDataItem(item["Items"][0])
+                    setCurrentVideoUrl(concatUrl(item["Items"][0]["video_id"]))
+                }
             })
     })
+
+    if (outOfVideos) {
+        return <div>
+            <Alert
+      message="All done!"
+      description="No more videos left to evaluate. Thank you for your participation!"
+      type="success"
+      showIcon
+    /></div>
+    }
 
     if (dataItem === undefined){
         return <div className="spinner">

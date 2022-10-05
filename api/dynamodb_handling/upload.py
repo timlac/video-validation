@@ -20,6 +20,7 @@ class Record:
 
 dynamodb = boto3.client('dynamodb')
 
+i = 0
 for key in get_bucket_contents():
     record = Record(key, "tim", randrange(3))
     record_json = vars(record)
@@ -31,5 +32,9 @@ for key in get_bucket_contents():
     # print(record_with_types)
 
     dynamodb.put_item(TableName="video_validation", Item=record_with_types["M"])
+
+    # i+=1
+    # if i > 0:
+    #     break
 
 
