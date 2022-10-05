@@ -16,19 +16,18 @@ export default function VideoForm() {
 
     const { token, setToken } = useToken();
 
-    const [emotionType, setEmotionType] = useState()
-    const [reply, setReply] = useState()
-    const [dataItem, setDataItem] = useState()
-    const [currentVideoUrl, setCurrentVideoUrl] = useState("")
-    const [submitting, setSubmitting] = useState(false)
+    const [emotionType, setEmotionType] = useState();
+    const [reply, setReply] = useState();
+    const [dataItem, setDataItem] = useState();
+    const [currentVideoUrl, setCurrentVideoUrl] = useState("");
+    const [submitting, setSubmitting] = useState(false);
 
-    const handleSubmit = event => {
+    const handleSubmit = async event => {
         setSubmitting(true);
         console.log("submitting data item ", dataItem)
-        putItem(dataItem)
-            .then(setSubmitting(false))
-            .then(setDataItem())
-            // .then(setDataItem())
+        await putItem(dataItem)
+        setSubmitting(false)
+        setDataItem()
     }
 
     const handleChange = event => {
@@ -59,7 +58,6 @@ export default function VideoForm() {
 
     return (
         <div>
-            {/*<div>{emos.map(emo => <p>{emo}</p>)}</div>*/}
             <div><p>{currentVideoUrl}</p></div>
             <div className="video">
                 <video controls width="50%" src={currentVideoUrl} />

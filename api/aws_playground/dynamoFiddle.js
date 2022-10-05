@@ -48,19 +48,20 @@ async function queryAliasAndStatus(){
         };
         const result = await dynamo.query(params).promise()
         console.log(JSON.stringify(result))
+        return result
     } catch (error) {
         console.error(error);
     }
 }
 
 
-async function putItem() {
+async function putItem(video_id) {
     try {
         const result = await dynamo.put({
             TableName: tableName,
             Item: {
                 alias: "tim",
-                video_id: "A327_cont_v_4.mov",
+                video_id: video_id,
                 processed_status: 1
             }
             }
@@ -71,7 +72,26 @@ async function putItem() {
     }
 }
 
-putItem()
+async function f() {
+    let resp = await queryAliasAndStatus()
+    console.log(resp)
+    let video_id = resp["Items"][0]["video_id"]
+
+    await putItem(video_id)
+
+    resp = await queryAliasAndStatus()
+    console.log(resp)
+}
+
+f()
+
+
+// queryAliasAndStatus().then(response => console.log(response))
+// console.log(ret)
+
+// queryAliasAndStatus()
+//     .then(putItem()
+//         .then(queryAliasAndStatus()))
 
 
         //

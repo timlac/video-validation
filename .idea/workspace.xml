@@ -2,12 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4bc3b919-fa33-42ba-897f-b34e791685a8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/validation-project-react.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/validation-project-react.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/aws_playground/dynamoFiddle.js" beforeDir="false" afterPath="$PROJECT_DIR$/api/aws_playground/dynamoFiddle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/VideoForm/VideoForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VideoForm/VideoForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/constants/Emotions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/Emotions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/GetAndSet.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/GetAndSet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +200,7 @@
       <workItem from="1664553161514" duration="730000" />
       <workItem from="1664720259216" duration="13927000" />
       <workItem from="1664872061091" duration="2870000" />
-      <workItem from="1664960243648" duration="15724000" />
+      <workItem from="1664960243648" duration="20873000" />
     </task>
     <servers />
   </component>
