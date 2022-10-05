@@ -53,12 +53,13 @@ export default function VideoForm() {
     })
 
     if (dataItem === undefined){
-        return <div>Loading...</div>
+        return <div className="spinner">
+                    <Spin size="large"/>
+                  </div>
     }
 
     return (
         <div>
-            <div><p>{currentVideoUrl}</p></div>
             <div className="video">
                 <video controls width="50%" src={currentVideoUrl} />
             </div>
@@ -80,11 +81,11 @@ export default function VideoForm() {
                         </Radio.Group>
                     </Form.Item>
                     <Form.Item>
-                        <Button disabled={submitting} type="primary" htmlType="submit">
+                        <Button disabled={submitting || !reply} type="primary" htmlType="submit">
                             Submit
                         </Button>
                         {submitting &&
-                            <div>Submitting form...</div>
+                            <div>Submitting...</div>
                         }
                     </Form.Item>
                 </Form>
