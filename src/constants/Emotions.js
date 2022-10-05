@@ -29,6 +29,34 @@ export const emotionDefinitions = {
     "Oro/Ängslan": "Känslan när du tänker på dåliga saker som kan hända dig"
 }
 
+export const emotiontypes = [
+    ["Beundran",
+        "Nöje",
+        "Vördnad",
+        "Koncentration",
+        "Beslutsamhet",
+        "Upphöjdhet",
+        "Exalterad/Förväntansfull",
+        "Tacksamhet"],
+    ["Beundran",
+        "Glädje",
+        "Hopp",
+        "Inspiration",
+        "Intresse/Nyfikenhet",
+        "Sexuell Lust",
+        "Att bli rörd",
+        "Lugn/Frid"],
+    ["Lättnad",
+        "Tillfredsställelse/Belåtenhet",
+        "Positiv Förvåning",
+        "Ömsinthet",
+        "Triumf/Prestation",
+        "Ilska",
+        "Oro/Ängslan",
+        "Stolthet"]
+]
+
+
 export const emotions1 = ["Beundran",
     "Nöje",
     "Vördnad",

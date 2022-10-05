@@ -1,3 +1,5 @@
+import useToken from "../components/App/useToken";
+
 export function putItem(item) {
     return fetch('https://1v3k9pr4el.execute-api.eu-west-1.amazonaws.com/items', {
         method: 'PUT',
@@ -9,7 +11,7 @@ export function putItem(item) {
         .then(data => data.json())
 }
 
-export function getItem() {
-    return fetch("https://1v3k9pr4el.execute-api.eu-west-1.amazonaws.com/items/tim")
+export function getItem(token) {
+    return fetch("https://1v3k9pr4el.execute-api.eu-west-1.amazonaws.com/items/" + token)
         .then(data => data.json())
 }
