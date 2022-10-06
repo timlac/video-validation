@@ -1,4 +1,4 @@
-import {Radio, Button, Form, Tooltip, Spin, Alert} from 'antd';
+import {Radio, Button, Form, Tooltip, Spin, Alert, message, PageHeader} from 'antd';
 import React, {useEffect, useState, useReducer} from 'react';
 import './VideoForm.css'
 
@@ -13,6 +13,10 @@ function concatUrl(videoKey) {
 }
 
 export default function VideoForm() {
+
+    const info = () => {
+      message.info('Choose the emotion that you think is portrayed in the video');
+    };
 
     const { token, setToken } = useToken();
 
@@ -76,8 +80,16 @@ export default function VideoForm() {
 
     return (
         <div>
+            <div className="info">
+                  <PageHeader
+                className="site-page-header"
+                title="Känsla"
+                subTitle="Välj den känsla som stämmer bäst överens med videon och tryck på submit!"
+              />
+
+            </div>
             <div className="video">
-                <video controls width="50%" src={currentVideoUrl} />
+                <video controls width="50%" src={currentVideoUrl} autoPlay="true" />
             </div>
             <div className="form">
                 <Form onFinish={handleSubmit}>
@@ -85,12 +97,12 @@ export default function VideoForm() {
                         <Radio.Group name="reply"
                                      disabled={submitting}
                                      onChange={handleChange}
-                                     style={{ marginTop: 16 }}
+                                     style={{ marginTop: 36 }}
                                      size="large"
                                      buttonStyle="solid"
                                      >
                             {emotiontypes[dataItem["emotion_type"]].map((emotion) => (
-                                <Tooltip title={emotionDefinitions[emotion]} color={"blue"} key={emotion}>
+                                <Tooltip title={emotionDefinitions[emotion]} color={"blue"} key={emotion} placement="top" >
                                     <Radio.Button value={emotion}>{emotion}</Radio.Button>
                                 </Tooltip>
                             ))}

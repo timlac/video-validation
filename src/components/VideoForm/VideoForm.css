@@ -10,6 +10,13 @@
     justify-content: center;
 }
 
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
 .spinner {
   margin: 20px 0;
   padding: 30px 50px;
