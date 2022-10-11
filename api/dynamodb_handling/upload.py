@@ -22,7 +22,7 @@ dynamodb = boto3.client('dynamodb')
 
 i = 0
 for key in get_bucket_contents():
-    record = Record(key, "Petri", randrange(3))
+    record = Record(key, "JHDKJHKH456464", randrange(3))
     record_json = vars(record)
     record_with_types = serializer.serialize(record_json)
 
@@ -33,7 +33,8 @@ for key in get_bucket_contents():
 
     dynamodb.put_item(TableName="video_validation", Item=record_with_types["M"])
 
-    # i+=1
+    i+=1
+    print(i)
     # if i > 0:
     #     break
 

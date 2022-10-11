@@ -1,5 +1,5 @@
 import {Radio, Button, Form, Tooltip, Spin, Alert, message, PageHeader} from 'antd';
-import React, {useEffect, useState, useReducer} from 'react';
+import React, {useEffect, useState, useReducer, useRef} from 'react';
 import './VideoForm.css'
 
 import {emotionDefinitions, emotions1, emotions2, emotiontypes} from "../../constants/Emotions";
@@ -14,12 +14,14 @@ function concatUrl(videoKey) {
 
 export default function VideoForm() {
 
+
     const info = () => {
       message.info('Choose the emotion that you think is portrayed in the video');
     };
 
     const { token, setToken } = useToken();
 
+    const [videoEnded, setVideoEnded] = useState(false)
 
     const [outOfVideos, setOutOfVideos] = useState(false)
     const [reply, setReply] = useState();
@@ -34,6 +36,8 @@ export default function VideoForm() {
         setSubmitting(false)
         setDataItem()
         setReply()
+        setVideoEnded(false)
+
     }
 
     const handleChange = event => {
@@ -89,7 +93,7 @@ export default function VideoForm() {
 
             </div>
             <div className="video">
-                <video controls width="50%" src={currentVideoUrl} autoPlay="true" />
+                <video controls width="50%" src={currentVideoUrl} autoPlay onEnded={() => setVideoEnded(true)}/>
             </div>
             <div className="form">
                 <Form onFinish={handleSubmit}>
@@ -109,7 +113,7 @@ export default function VideoForm() {
                         </Radio.Group>
                     </Form.Item>
                     <Form.Item>
-                        <Button disabled={submitting || !reply} type="primary" htmlType="submit">
+                        <Button disabled={submitting || !reply || !videoEnded} type="primary" htmlType="submit">
                             Submit
                         </Button>
                         {submitting &&
