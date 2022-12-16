@@ -22,7 +22,7 @@ dynamodb = boto3.client('dynamodb')
 
 i = 0
 for key in get_bucket_contents():
-    record = Record(key, "JHDKJHKH456464", randrange(3))
+    record = Record(key, "Tim", randrange(3))
     record_json = vars(record)
     record_with_types = serializer.serialize(record_json)
 

@@ -2,7 +2,7 @@ import {Radio, Button, Form, Tooltip, Spin, Alert, message, PageHeader} from 'an
 import React, {useEffect, useState, useReducer, useRef} from 'react';
 import './VideoForm.css'
 
-import {emotionDefinitions, emotions1, emotions2, emotiontypes} from "../../constants/Emotions";
+import {emotionDefinitions, positiveEmotions} from "../../constants/Emotions";
 import {putItem, getItem} from "../../services/GetAndSet";
 import useToken from "../App/useToken";
 
@@ -105,7 +105,7 @@ export default function VideoForm() {
                                      size="large"
                                      buttonStyle="solid"
                                      >
-                            {emotiontypes[dataItem["emotion_type"]].map((emotion) => (
+                            {positiveEmotions[dataItem["emotion_type"]].map((emotion) => (
                                 <Tooltip title={emotionDefinitions[emotion]} color={"blue"} key={emotion} placement="top" >
                                     <Radio.Button value={emotion}>{emotion}</Radio.Button>
                                 </Tooltip>
