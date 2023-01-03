@@ -1,9 +1,9 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import VideoForm from "../VideoForm/VideoForm";
 import Login from "../Login/Login";
 import useToken from "./useToken";
+import MyLayout from "../MyLayout/MyLayout";
 
 function App() {
 
@@ -16,9 +16,9 @@ function App() {
     return (
         <div className="wrapper">
             <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<VideoForm/>} />
-                </Routes>
+                <MyLayout>
+
+                    </MyLayout>
             </BrowserRouter>
         </div>
     );

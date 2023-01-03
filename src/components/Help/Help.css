@@ -1,0 +1,25 @@
+.center {
+  max-width: 210mm;
+  padding-left: 36px;
+  text-align: justify;
+}
+
+.exampleButtons {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  justify-content: center;
+  display: flex;
+
+}
+
+
+.goToTest {
+  margin-top: 24px;
+  padding-left: 36px;
+}
+
+
+/*.center {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*}*/

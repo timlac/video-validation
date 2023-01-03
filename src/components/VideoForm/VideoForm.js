@@ -16,10 +16,10 @@ export default function VideoForm() {
 
 
     const info = () => {
-      message.info('Choose the emotion that you think is portrayed in the video');
+        message.info('Choose the emotion that you think is portrayed in the video');
     };
 
-    const { token, setToken } = useToken();
+    const {token, setToken} = useToken();
 
     const [videoEnded, setVideoEnded] = useState(false)
 
@@ -51,13 +51,13 @@ export default function VideoForm() {
     }
 
 
-    useEffect( () => {
-        if(dataItem) {
+    useEffect(() => {
+        if (dataItem) {
             return;
         }
         getItem(token)
             .then(item => {
-                if (item["Items"].length === 0){
+                if (item["Items"].length === 0) {
                     setOutOfVideos(true)
                 } else {
                     setDataItem(item["Items"][0])
@@ -69,27 +69,27 @@ export default function VideoForm() {
     if (outOfVideos) {
         return <div>
             <Alert
-      message="All done!"
-      description="No more videos left to evaluate. Thank you for your participation!"
-      type="success"
-      showIcon
-    /></div>
+                message="All done!"
+                description="No more videos left to evaluate. Thank you for your participation!"
+                type="success"
+                showIcon
+            /></div>
     }
 
-    if (dataItem === undefined){
+    if (dataItem === undefined) {
         return <div className="spinner">
-                    <Spin size="large"/>
-                  </div>
+            <Spin size="large"/>
+        </div>
     }
 
     return (
         <div>
             <div className="info">
-                  <PageHeader
-                className="site-page-header"
-                title="Känsla"
-                subTitle="Välj den känsla som stämmer bäst överens med videon och tryck på submit!"
-              />
+                <PageHeader
+                    className="site-page-header"
+                    title="Känsla"
+                    subTitle="Välj den känsla som stämmer bäst överens med videon och tryck på skicka!"
+                />
 
             </div>
             <div className="video">
@@ -101,12 +101,13 @@ export default function VideoForm() {
                         <Radio.Group name="reply"
                                      disabled={submitting}
                                      onChange={handleChange}
-                                     style={{ marginTop: 36 }}
+                                     style={{marginTop: 36}}
                                      size="large"
                                      buttonStyle="solid"
-                                     >
-                            {positiveEmotions[dataItem["emotion_type"]].map((emotion) => (
-                                <Tooltip title={emotionDefinitions[emotion]} color={"blue"} key={emotion} placement="top" >
+                        >
+                            {positiveEmotions.map((emotion) => (
+                                <Tooltip title={emotionDefinitions[emotion]} color={"blue"} key={emotion}
+                                         placement="top">
                                     <Radio.Button value={emotion}>{emotion}</Radio.Button>
                                 </Tooltip>
                             ))}
@@ -114,10 +115,10 @@ export default function VideoForm() {
                     </Form.Item>
                     <Form.Item>
                         <Button disabled={submitting || !reply || !videoEnded} type="primary" htmlType="submit">
-                            Submit
+                            Skicka
                         </Button>
                         {submitting &&
-                            <div>Submitting...</div>
+                            <div>Skickar...</div>
                         }
                     </Form.Item>
                 </Form>
