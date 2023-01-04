@@ -5,10 +5,9 @@ import sys
 import os
 from botocore.exceptions import ClientError
 
+from config import s3_bucket_name
 from database.metadata.error_file_exception import ErrorFileException
-from database.metadata.get_metadata import get_metadata
-from database.helpers import get_filename
-
+from database.metadata.file_metadata import Metadata
 
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
@@ -23,7 +22,7 @@ class s3Uploader:
 
     def __init__(self):
         # Set the name of the bucket and the file you want to upload
-        self.bucket_name = "validation-experiment-video-files-01"
+        self.bucket_name = s3_bucket_name
 
         # Create an S3 client
         self.s3 = boto3.client('s3')
@@ -64,7 +63,10 @@ def process_files(directory):
 
     for filepath in paths:
         try:
-            metadata = get_metadata(filepath)
+            metadata = Metadata(filepath)
+            print()
+            print(vars(metadata))
+
             if not metadata.mix:
                 file_name = os.path.basename(filepath)
 
@@ -73,7 +75,7 @@ def process_files(directory):
                 else:
                     logging.info("uploading file: " + str(file_name))
                     # Upload the file to S3
-                    uploader.upload(filepath, file_name)
+                    # uploader.upload(filepath, file_name)
 
         except ErrorFileException as e:
             logging.info(e)

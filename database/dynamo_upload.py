@@ -1,11 +1,33 @@
 import boto3
 from random import randrange
+from boto3.dynamodb.types import TypeSerializer
+from config import s3_bucket_name
+
 
 from database.record import Record
-from database.s3_handler import get_bucket_contents
 
-from boto3.dynamodb.types import TypeSerializer
+
+
 serializer = TypeSerializer()
+
+
+def get_bucket_contents():
+    s3 = boto3.client("s3")
+    bucket_name = s3_bucket_name
+    for key in s3.list_objects(Bucket=bucket_name)["Contents"]:
+        yield key["Key"]
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # TODO: Need some system to store valence of emotion.

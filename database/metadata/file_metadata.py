@@ -1,5 +1,5 @@
 from database.config import emotion_abr_to_emotion_id, emotion_id_to_valence
-from database.helpers import get_digits_only, name2list
+from database.helpers import get_digits_only, name2list, get_filename
 from database.metadata.error_file_exception import ErrorFileException
 
 
@@ -20,8 +20,9 @@ class Metadata(object):
     DEFAULT_VALENCE = None
 
     def __init__(self,
-                 filename,
-                 video_id):
+                 filepath):
+
+        filename = get_filename(filepath)
 
         self.filename = filename
         self.name_list = name2list(filename)
@@ -41,6 +42,8 @@ class Metadata(object):
         self.situation = self.DEFAULT_SITUATION
         self.emotion_1_valence = self.DEFAULT_VALENCE
         self.emotion_2_valence = self.DEFAULT_VALENCE
+
+        self.set_all_metadata(self.name_list)
 
     def set_mixed_emotions(self, name_list):
         """
@@ -92,11 +95,11 @@ class Metadata(object):
             self.emotion_2_id = emotion_abr_to_emotion_id[self.emotion_2]
 
     def set_valence(self):
-        self.emotion_1_valence = emotion_id_to_valence[self.emotion_1_id]
+        self.emotion_1_valence = emotion_id_to_valence[str(self.emotion_1_id)]
         if self.mix == 1:
-            self.emotion_2_valence = emotion_id_to_valence[self.emotion_2]
+            self.emotion_2_valence = emotion_id_to_valence[str(self.emotion_2_id)]
 
-    def set_metadata_from_filename(self, name_list):
+    def set_all_metadata(self, name_list):
         if name_list[1] == special_cases["mixed_emotions"]:
             self.set_mixed_emotions(name_list)
         elif name_list[1] == special_cases["neutral_emotion"]:
@@ -113,7 +116,6 @@ class Metadata(object):
 
         self.set_emotion_ids()
         self.set_valence()
-
 
 
 special_cases = {
