@@ -14,7 +14,7 @@ logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 
 def get_file_paths(path):
-    paths = glob(path + '*.mov')
+    paths = glob(path + '**/*.mov')
     logging.info("Files found:" + str(len(paths)))
     return paths
 
@@ -80,5 +80,5 @@ def process_files(directory):
             continue
 
 
-path = "/home/tim/work/su-thesis-project/resources/videos/A218_normalized audio-video clips/"
+path = "/home/tim/work/su-thesis-project/resources/videos/"
 process_files(path)
